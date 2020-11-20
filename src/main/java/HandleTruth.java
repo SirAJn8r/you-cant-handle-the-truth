@@ -1,11 +1,32 @@
+import java.io.PrintStream;
 import java.util.*;
 
 public class HandleTruth {
-    public static void wordCount() {
-        String msg = "son we live in a world that has walls and those walls have to be guarded by men with guns whos gonna do it you you lieutenant weinberg i have a greater responsibility than you can possibly fathom you weep for santiago and you curse the marines you have that luxury you have the luxury of not knowing what i know that santiagos death while tragic probably saved lives and my existence while grotesque and incomprehensible to you saves lives you dont want the truth because deep down in places you dont talk about at parties you want me on that wall you need me on that wall we use words like honor code loyalty we use these words as the backbone of a life spent defending something you use them as a punchline i have neither the time nor the inclination to explain myself to a man who rises and sleeps under the blanket of the very freedom that i provide and then questions the manner in which i provide it i would rather you just said thank you and went on your way otherwise i suggest you pick up a weapon and stand a post either way i dont give a damn what you think you are entitled to";
-
+    public static String wordCount(String msg, PrintStream output) {
         // split the message into word set
         String[] words = msg.split(" ");
+
+        //NEW CODE: Makes every word lowercase to fix error where The and the are different words (which they are not).
+        for(int i = 0; i < words.length; i++)
+            words[i] = words[i].toLowerCase();
+
+        //NEW CODE: Removes any occurrences of a word that is just "" (which prior to this, literally nothing could be considered a word with the right input)
+        int newWordsLength = words.length;
+        for(String word : words) {
+            if(word.equals(""))
+                newWordsLength--;
+        }
+        if(newWordsLength != words.length)
+        {
+            String[] newWords = new String[newWordsLength];
+            int newWordsCounter = 0;
+            for(int i = 0; i < words.length; i++) {
+                if(!words[i].equals("")) {
+                    newWords[newWordsCounter++] = words[i];
+                }
+            }
+            words = newWords;
+        }
 
         // use map to count the occurrences of each word
         HashMap<String, Integer> wordMap = new HashMap<>();
@@ -17,7 +38,7 @@ public class HandleTruth {
             wordMap.put(word, 1);
         }
         for (Map.Entry<String, Integer> entry : wordMap.entrySet()) {
-            System.out.println(entry);
+            output.println(entry);
         }
 
         // sort the map based on number of occurrences
@@ -31,7 +52,9 @@ public class HandleTruth {
         }
 
         for (Map.Entry<Integer, Set<String>> entry : sortedMap.entrySet()) {
-            System.out.println(entry);
+            output.println(entry);
         }
+
+        return sortedMap.toString();
     }
 }
