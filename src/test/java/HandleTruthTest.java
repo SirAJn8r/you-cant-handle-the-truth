@@ -16,7 +16,9 @@ public class HandleTruthTest {
             "the the THE The thE tHE Capitalisation Tests",
             "this is to test the ordering of the words that this test outputs", //the answer is weirdly ordered because hashmaps.
             "Ho`w mess^ed %up c$#2n I m(){}ake th;'s senten<>ce.?!",
-            "What happens with a \n breakline"
+            "What happens with a \n breakline", //\n is a word in this case, interesting
+            "", //just to test what happens when it is empty
+            "What happens with a  doublespace"
         };
         String[] expected =
         {
@@ -24,7 +26,9 @@ public class HandleTruthTest {
             "{2=[the], 1=[THE, The, thE, tHE, Capitalisation, Tests]}",
             "{2=[the, test, this], 1=[outputs, that, ordering, of, words, is, to]}",
             "{1=[%up, th;'s, m(){}ake, senten<>ce.?!, I, Ho`w, c$#2n, mess^ed]}",
-            "{1=[with, a, breakline, \n, What, happens]}"
+            "{1=[with, a, breakline, \n, What, happens]}",
+            "{1=[]}",
+            "{1=[, with, a, What, happens, doublespace]}"
         };
 
         for(int i = 0; i < inputs.length; i++)
