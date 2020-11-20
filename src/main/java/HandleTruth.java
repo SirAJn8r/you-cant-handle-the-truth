@@ -2,7 +2,7 @@ import java.io.PrintStream;
 import java.util.*;
 
 public class HandleTruth {
-    public static String wordCount(String msg, PrintStream output) {
+    public static TreeMap<Integer, Set<String>> wordCount(String msg, PrintStream output) {
         // split the message into word set
         String[] words = msg.split(" ");
 
@@ -33,6 +33,6 @@ public class HandleTruth {
             //output.println(entry);
         }
 
-        return sortedMap.toString();
+        return sortedMap;
     }
 }
